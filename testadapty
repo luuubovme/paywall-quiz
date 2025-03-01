@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription</title>
-    <script src="https://cdn.jsdelivr.net/npm/@adaptyteam/adapty-web-sdk"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@adaptyteam/adapty-web-sdk"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
         .paywall { max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
@@ -19,8 +19,14 @@
     <script>
         async function loadPaywall() {
             const adapty = new Adapty();
-            await adapty.activate("public_live_tA4fTbYC.iPAYiwPrCuWVmFUeeGWa"); // Вставь свой API-ключ Adapty
-            const paywall = await adapty.getPaywall("YOUR_PAYWALL_ID"); // Вставь Paywall ID
+await adapty.activate('YOUR_ADAPTY_PUBLIC_SDK_KEY');
+
+try {
+    const paywall = await adapty.getPaywall('test-paywall'); // Используйте ваш Placement ID
+    // Отобразите пейволл на странице
+} catch (error) {
+    console.error('Ошибка при получении пейволла:', error);
+}
 
             let paywallHTML = "";
             paywall.products.forEach(product => {
