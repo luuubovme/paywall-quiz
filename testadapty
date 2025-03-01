@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <script src="https://cdn.jsdelivr.net/npm/@adaptyteam/adapty-web-sdk"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .paywall { max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        .btn { background-color: black; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Choose Your Plan</h1>
+    <div id="paywall"></div>
+
+    <script>
+        async function loadPaywall() {
+            const adapty = new Adapty();
+            await adapty.activate("public_live_tA4fTbYC.iPAYiwPrCuWVmFUeeGWa"); // Вставь свой API-ключ Adapty
+            const paywall = await adapty.getPaywall("YOUR_PAYWALL_ID"); // Вставь Paywall ID
+
+            let paywallHTML = "";
+            paywall.products.forEach(product => {
+                paywallHTML += `
+                    <div class="paywall">
+                        <h2>${product.localized_title}</h2>
+                        <p>${product.localized_price} / ${product.subscription_period}</p>
+                        <button class="btn" onclick="purchase('${product.vendor_product_id}')">Subscribe</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById("paywall").innerHTML = paywallHTML;
+        }
+
+        function purchase(productId) {
+            alert(`Redirecting to purchase: ${productId}`);
+            // Здесь можно сделать редирект на платежную систему или в приложение
+        }
+
+        loadPaywall();
+    </script>
+
+</body>
+</html>
